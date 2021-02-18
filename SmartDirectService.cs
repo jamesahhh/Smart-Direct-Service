@@ -5,6 +5,7 @@ using log4net;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -15,8 +16,9 @@ namespace Smart_Direct_Service
     {
         public static readonly ILog _log = LogManager.GetLogger(typeof(SmartDirectService));
         private FileSystemWatcher CsvWatcher;
-        private string watchDirectory = "C:\\smartsms\\";
-
+        private string watchDirectory = ConfigurationManager.AppSettings["watchDirectory"];
+        private string key = ConfigurationManager.AppSettings["APIsecret"];
+        private string sender = ConfigurationManager.AppSettings["sender"];
 
         public void Start()
         {
@@ -67,9 +69,9 @@ namespace Smart_Direct_Service
             }
         }
 
-        private static void CallExternalAPI(string phone, string message)
+        private void CallExternalAPI(string phone, string message)
         {
-            var param = new { sender = "6714320", text = message, key = "29c16dee9f79234513e0c85d4357ae6c", receiver = phone };
+            var param = new { sender = sender, text = message, key = key, receiver = phone };
 
             var client = new RestClient("https://direct.smart.bz/api/P2001");
 
