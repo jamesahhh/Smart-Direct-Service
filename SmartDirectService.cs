@@ -19,6 +19,7 @@ namespace Smart_Direct_Service
         private string watchDirectory = ConfigurationManager.AppSettings["watchDirectory"];
         private string key = ConfigurationManager.AppSettings["APIsecret"];
         private string sender = ConfigurationManager.AppSettings["sender"];
+        private string apiurl = ConfigurationManager.AppSettings["Apiurl"];
 
         public void Start()
         {
@@ -73,7 +74,7 @@ namespace Smart_Direct_Service
         {
             var param = new { sender = sender, text = message, key = key, receiver = phone };
 
-            var client = new RestClient("https://direct.smart.bz/api/P2001");
+            var client = new RestClient(apiurl);
 
             var request = new RestRequest()
                 .AddJsonBody(param);

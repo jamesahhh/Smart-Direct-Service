@@ -1,5 +1,6 @@
 ﻿using log4net;
 using log4net.Config;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,7 +13,6 @@ namespace Smart_Direct_Service
         public static readonly ILog _log = LogManager.GetLogger(typeof(SmartDirectService));
         static void Main(string[] args)
         {
-           
             HostFactory.Run(hostConfig =>
             {
                 var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
