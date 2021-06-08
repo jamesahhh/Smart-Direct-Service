@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: "Checkout Source"
+        uses: actions/checkout@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -25,13 +27,11 @@ jobs:
           dotnet build --configuration Release --no-restore
 
       - uses: papeloto/action-zip@v1
-      - name: Zip Release
         with:
           files: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
           dest: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
 
       - uses: "marvinpinto/action-automatic-releases@latest"
-      - name: Generate Release
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
