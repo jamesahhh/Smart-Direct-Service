@@ -29,8 +29,12 @@ jobs:
       with:
           name: Smart Direct Service
           path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart Direct Service.exe
-            
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: GitHub Upload Release Artifacts
       uses: Roang-zero1/github-upload-release-artifacts-action@master
       with:
           args: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart Direct Service.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
