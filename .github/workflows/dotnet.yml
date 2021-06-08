@@ -8,38 +8,35 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: "Checkout Source"
         uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 5.0.x
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
-      - name: Build
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.2
+
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - name: Build Solution
         run: |
-          dotnet clean
-          dotnet build --configuration Release --no-restore
+          msbuild.exe Smart\ Direct\ Service.sln /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
 
       - uses: papeloto/action-zip@v1
         with:
-          files: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart\ Direct\ Service.exe
+          files: _build
           recursive: true
-          dest: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
+          dest: build.zip
 
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
           path: ${{ github.workspace }}/result.zip
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: |
-            /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
