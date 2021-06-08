@@ -19,18 +19,21 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
-
       - name: Build
         run: |
+          dotnet clean
           dotnet build --configuration Release --no-restore
 
       - uses: papeloto/action-zip@v1
         with:
           files: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart\ Direct\ Service.exe
-          recursive: false
+          recursive: true
           dest: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/result.zip
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
