@@ -29,7 +29,8 @@ namespace Smart_Direct_Service
                 hostConfig.RunAsLocalSystem();
                 hostConfig.SetDescription("Service to watch directory for incoming file input and perfrom interactions with Web API");
                 hostConfig.SetDisplayName("Smart Direct Messager");
-                hostConfig.SetServiceName("SDSMessager");
+                hostConfig.SetServiceName("Smart Direct Messager");
+                hostConfig.StartAutomatically();
             });
         }
     }
