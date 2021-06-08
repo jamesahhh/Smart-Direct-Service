@@ -43,3 +43,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
+          asset_name: SMS-direct.zip
+          asset_content_type: application/zip
