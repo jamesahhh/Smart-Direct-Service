@@ -28,7 +28,8 @@ jobs:
 
       - uses: papeloto/action-zip@v1
         with:
-          files: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
+          files: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart Direct Service.exe
+          recursive: false
           dest: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
 
       - uses: "marvinpinto/action-automatic-releases@latest"
