@@ -19,13 +19,14 @@ jobs:
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
-        run: nuget restore "Smart Direct Service.sln"
 
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
 
       - name: Create Build Directory
         run: mkdir _build
+
+      - run: nuget restore "Smart Direct Service.sln"
 
       - name: Build Solution
         run: |
