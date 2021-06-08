@@ -30,6 +30,7 @@ jobs:
           files: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
           dest: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
 
+      -name: Generate Release
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
