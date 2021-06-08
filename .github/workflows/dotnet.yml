@@ -23,25 +23,18 @@ jobs:
       - name: Build
         run: |
           dotnet build --configuration Release --no-restore
-          zip -r SMS-direct.zip /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
 
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
+      - name: Zip Release
+      - uses: papeloto/action-zip@v1
         with:
-          draft: false
-          prerelease: false
-          release_name: ${{ steps.version.outputs.version }}
-          tag_name: ${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          files: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
+          dest: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
 
-      - name: upload artifacts
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
-          asset_name: SMS-direct.zip
-          asset_content_type: application/zip
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
