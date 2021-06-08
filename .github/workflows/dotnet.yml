@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
+          dotnet-version: 4.7.2
 
       - name: Restore dependencies
         run: dotnet restore
@@ -28,8 +28,8 @@ jobs:
 
       - uses: papeloto/action-zip@v1
         with:
-          files: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
-          dest: ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
+          files: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
+          dest: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -38,4 +38,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            ./home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
+            /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
