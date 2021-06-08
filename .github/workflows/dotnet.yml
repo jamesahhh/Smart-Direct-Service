@@ -22,24 +22,27 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: | 
+        dotnet build --configuration Release --no-restore
+        zip -r SMS-direct.zip /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
 
-    - name: Upload SDS Build Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-          name: Smart Direct Service
-          path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
+    - name: release
+    uses: actions/create-release@v1
+    id: create_release
+    with:
+      draft: false
+      prerelease: false
+      release_name: ${{ steps.version.outputs.version }}
+      tag_name: ${{ github.ref }}
+      body_path: CHANGELOG.md
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    
+    - name: upload artifacts
+      uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: "Build & test"
-        run: |
-          echo "done!"    
-    - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/
-        id: "automatic_releases"
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/SMS-direct.zip
     
