@@ -30,15 +30,15 @@ jobs:
 
       - name: Build Solution
         run: |
-          msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+          msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="$GITHUB_WORKSPACE/_build"
 
       - uses: papeloto/action-zip@v1
         with:
-          files: _build
+          files: $GITHUB_WORKSPACE/_build
           recursive: true
           dest: build.zip
 
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
-          path: ./_build
+          path: $GITHUB_WORKSPACE/_build
