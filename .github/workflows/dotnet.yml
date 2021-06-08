@@ -21,7 +21,9 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Navigate to Workspace
-        run: cd $GITHUB_WORKSPACE
+        run: cd ${{ github.workspace }}
+
+      - run: pwd
 
       - name: Create Build Directory
         run: mkdir _build
@@ -30,15 +32,15 @@ jobs:
 
       - name: Build Solution
         run: |
-          msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="$GITHUB_WORKSPACE/_build"
+          msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
 
       - uses: papeloto/action-zip@v1
         with:
-          files: $GITHUB_WORKSPACE/_build
+          files: ${{ github.workspace }}/_build
           recursive: true
           dest: build.zip
 
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
-          path: $GITHUB_WORKSPACE/_build
+          path: ${{ github.workspace }}/_build
