@@ -20,7 +20,6 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
           workflow: dotnet.yml
           workflow_conclusion: success
-          commit: d66ea2a59a236aa06fc8ff98f2aaae3da05fdf21
           branch: master
           event: push
           name: my-artifact
@@ -30,6 +29,7 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
           prerelease: false
           files: |
             my_artifact.zip
