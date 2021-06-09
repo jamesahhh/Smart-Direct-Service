@@ -34,15 +34,7 @@ jobs:
         run: |
           msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
 
-      - run: cd \bin\Release\
-
-      - uses: papeloto/action-zip@v1
-        with:
-          files: \net4.7.2\
-          recursive: false
-          dest: build.zip
-
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
-          path: ${{ github.workspace }}\build.zip
+          path: ${{ github.workspace }}\bin\release\net4.7.2
