@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <None Update="App.SECRETS.config">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

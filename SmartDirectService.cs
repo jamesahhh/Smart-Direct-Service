@@ -78,7 +78,7 @@ namespace Smart_Direct_Service
                     }
                 }
             }
-            File.Move(e.FullPath, outDirectory + e.Name);
+            File.Delete(e.FullPath);
             //_log.Info("disposed");
 
         }
