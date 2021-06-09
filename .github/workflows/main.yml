@@ -25,6 +25,11 @@ jobs:
           name: my-artifact
           path: ./my-artifact
 
+      - uses: papeloto/action-zip@v1
+        with:
+          files: ./my-artifact
+          dest: ./SDS.zip
+
       - name: Display structure of downloaded files
         run: ls -R
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -33,4 +38,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           files: |
-            my-artifact
+            ./SDS.zip
