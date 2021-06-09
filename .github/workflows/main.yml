@@ -14,12 +14,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # ...
-      - uses: actions/download-artifact@v2
+      - name: Download Artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          name: .NET/my-artifact
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: dotnet.yml
+          workflow_conclusion: completed,success
+          branch: master
+          event: push
+          name: my_artifact
 
       - name: Display structure of downloaded files
         run: ls -R
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
