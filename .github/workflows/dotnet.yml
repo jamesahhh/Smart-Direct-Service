@@ -34,7 +34,7 @@ jobs:
         run: |
           msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
           path: ${{ github.workspace }}\bin\release\net4.7.2

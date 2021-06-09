@@ -18,7 +18,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          workflow: dotnet.yml
+          workflow: .NET
           workflow_conclusion: completed,success
           commit: d66ea2a59a236aa06fc8ff98f2aaae3da05fdf21
           branch: master
