@@ -18,12 +18,12 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          workflow: .NET
-          workflow_conclusion: completed,success
+          workflow: dotnet.yml
+          workflow_conclusion: success
           commit: d66ea2a59a236aa06fc8ff98f2aaae3da05fdf21
           branch: master
           event: push
-          name: my_artifact
+          name: my-artifact
 
       - name: Display structure of downloaded files
         run: ls -R
