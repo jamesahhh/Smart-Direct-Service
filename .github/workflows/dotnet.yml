@@ -2,35 +2,39 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-        
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+      - name: "Checkout Source"
+        uses: actions/checkout@v2
 
-    - name: Upload SDS Build Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-          name: Smart Direct Service
-          path: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart Direct Service.exe
-            
-    - name: GitHub Upload Release Artifacts
-      uses: Roang-zero1/github-upload-release-artifacts-action@master
-      with:
-          args: /home/runner/work/Smart-Direct-Service/Smart-Direct-Service/bin/Release/net4.7.2/Smart Direct Service.exe
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Navigate to Workspace
+        run: cd ${{ github.workspace }}
+
+      - run: pwd
+
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - run: nuget restore "Smart Direct Service.sln"
+
+      - name: Build Solution
+        run: |
+          msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}\bin\release\net4.7.2
