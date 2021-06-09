@@ -32,4 +32,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           files: |
-            my_artifact.zip
+            my-artifact.zip
