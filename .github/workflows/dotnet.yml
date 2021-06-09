@@ -34,9 +34,11 @@ jobs:
         run: |
           msbuild.exe "Smart Direct Service.sln" /nologo /nr:false /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
 
+      - run: cd \bin\Release\
+
       - uses: papeloto/action-zip@v1
         with:
-          files: \bin\Release\net4.7.2
+          files: \net4.7.2\
           recursive: false
           dest: build.zip
 
