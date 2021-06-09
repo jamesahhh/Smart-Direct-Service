@@ -12,28 +12,14 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
+      - uses: actions/checkout@v2
       # ...
-      - name: Download artifact
-        uses: aochmann/actions-download-artifact@1.0.0
+      - uses: actions/download-artifact@v2
         with:
-          # Optional, GitHub token
-          github_token: ${{secrets.GITHUB_TOKEN}}
+          name: .NET/my-artifact
 
-          # Optional, uploaded artifact name,
-          # will download all artifacts if not specified
-          # and extract them in respective subdirectories
-          # https://github.com/actions/download-artifact#download-all-artifacts
-          name: my_artifact
-
-          # Optional, download latest artifact
-          latest: true
-
-          # Optional, directory where to extract artifact
-          path: ${{ github.workspace }}
-
-          # Optional, defaults to current repo
-          repo: ${{github.repository}}
-          
+      - name: Display structure of downloaded files
+        run: ls -R
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
