@@ -22,7 +22,6 @@ namespace Smart_Direct_Service
         private string key = ConfigurationManager.AppSettings["APIsecret"];
         private string sender = ConfigurationManager.AppSettings["sender"];
         private string apiurl = ConfigurationManager.AppSettings["Apiurl"];
-        private string outDirectory = ConfigurationManager.AppSettings["processedDirectory"];
 
         public void Start()
         {
