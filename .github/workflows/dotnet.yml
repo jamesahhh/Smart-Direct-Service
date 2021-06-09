@@ -36,11 +36,11 @@ jobs:
 
       - uses: papeloto/action-zip@v1
         with:
-          files: ${{ github.workspace }}/bin/Release/net4.7.2
+          files: \bin\Release\net4.7.2
           recursive: false
-          dest: ${{ github.workspace }}/build.zip
+          dest: build.zip
 
       - uses: actions/upload-artifact@v1
         with:
           name: my-artifact
-          path: ${{ github.workspace }}/build.zip
+          path: ${{ github.workspace }}\build.zip
