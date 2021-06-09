@@ -23,6 +23,7 @@ jobs:
           branch: master
           event: push
           name: my-artifact
+          path: ./my-artifact
 
       - name: Display structure of downloaded files
         run: ls -R
@@ -32,4 +33,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           files: |
-            my-artifact.zip
+            my-artifact
